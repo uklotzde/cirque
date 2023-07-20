@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: The cirque authors
+# SPDX-License-Identifier: MPL-2.0
+
+[package]
+name = "cirque"
+description = "Unidirectional, circular, lock/wait-free SPSC queue with unbounded capacity."
+version = "0.0.1"
+license = "MPL-2.0"
+readme = "README.md"
+repository = "https://github.com/uklotzde/cirque"
+keywords = ["spsc", "lock-free", "wait-free", "queue"]
+categories = ["concurrency", "data-structures"]
+edition = "2021"
+include = ["/src", "/README.md", "/LICENSES"]
+
+[dependencies]
+llq = "0.1.1"
