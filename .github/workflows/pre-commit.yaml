@@ -13,18 +13,23 @@ on:
   push:
     branches:
       - "*"
+  workflow_dispatch:
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  pre-commit:
-    name: Detecting code style issues
+  run:
     runs-on: ubuntu-latest
+
     steps:
       - name: Install ALSA and Jack dependencies
-        run: |
-          sudo apt-get update && sudo apt-get install -y libasound2-dev libjack-jackd2-dev libudev-dev
+        run: >-
+          sudo apt-get update &&
+          sudo apt-get install -y
+          libasound2-dev
+          libjack-jackd2-dev
+          libudev-dev
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -45,8 +50,8 @@ jobs:
       - name: Cache Rust toolchain and build artifacts
         uses: Swatinem/rust-cache@v2
         with:
-          # Distinguished by the action name to avoid sharing across different actions!
-          shared-key: "pre-commit"
+          # The cache should not be shared between different workflows and jobs.
+          shared-key: ${{ github.workflow }}-${{ github.job }}
 
       - name: Detect code style issues (push)
         uses: pre-commit/action@v3.0.0
